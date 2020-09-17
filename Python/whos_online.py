@@ -12,6 +12,7 @@ class Find_Online:
         r = requests.get(f"https://www.bungie.net/Platform//GroupV2/{self.clan_id}/Members/", headers=HEADERS)
         clan = r.json()
         player_number = 0
+        print(clan)
         for _ in clan['Response']['results']:
             player = clan['Response']['results'][player_number]['destinyUserInfo']['LastSeenDisplayName']
             status = clan['Response']['results'][player_number]['isOnline']

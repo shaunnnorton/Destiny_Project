@@ -1,0 +1,62 @@
+body{
+    margin: 0;
+    background-image: url(destiny-2-logo-free-logo-download-allogos-destiny-2-logo-png-500_350.png);
+    background-color: teal;
+    background-repeat: no-repeat;
+    background-size: 50%;
+    background-position: center;
+    background-attachment: fixed;
+    font-family: Arial, Helvetica, sans-serif;
+}
+header{
+    display: flex;
+    background-color: midnightblue;
+    color: whitesmoke;
+    position: fixed;
+    width: 100%;
+    top: 0;
+    height: 70px;
+    align-items: center;
+    background-image: url(./Juice\ Productions\ Logo\ copy.png);
+    background-size: 65px;
+    background-repeat: no-repeat;
+    background-position: right;
+    justify-content: center;
+}
+header input,header button{
+    border-radius: 10px;
+    border-style: inset;
+}
+
+main{
+    display:flex;
+    margin-top: auto;
+    padding-top: 75px;
+    justify-content: center;
+    
+    
+}
+
+#clan_name{
+    text-align: center;
+    background-color: rgba(207, 214, 180, 0.219);
+    margin: 0;
+}
+
+#players{
+    list-style: none;
+    padding: 0;
+    text-align: center;
+    margin: 0;
+    background-color:  rgba(207, 214, 180, 0.219);
+}
+#players :nth-child(odd){
+    background-color:  rgba(207, 214, 180, 0.219);
+}
+#Clan{
+    border: black solid 3px;
+
+}
+.clan_member{
+    padding: 0.25em;
+}
