@@ -23,13 +23,14 @@ header{
     background-position: right;
     justify-content: center;
     flex-wrap: wrap;
+    text-size-adjust: 3vw;
 }
 header input,header button{
     border-radius: 10px;
     border-style: inset;
 }
 header input{
-    width: fit-content;
+    width: min-content;
 }
 
 main{
