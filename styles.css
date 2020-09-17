@@ -24,6 +24,7 @@ header{
     justify-content: center;
     flex-wrap: wrap;
     text-size-adjust: 3vw;
+    font-size: 2vw;
 }
 header input,header button{
     border-radius: 10px;
