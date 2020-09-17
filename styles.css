@@ -23,8 +23,10 @@ header{
     background-position: right;
     justify-content: center;
     flex-wrap: wrap;
-    text-size-adjust: 3vw;
-    font-size: 2vw;
+    
+    font-size: 1vw;
+    min-height: 65px;
+    
 }
 header input,header button{
     border-radius: 10px;
@@ -37,7 +39,7 @@ header input{
 main{
     display:flex;
     margin-top: 100px;
-    padding-top: 50px;
+    ;
     justify-content: center;
     
     
