@@ -12,7 +12,7 @@ header{
     display: flex;
     background-color: midnightblue;
     color: whitesmoke;
-    position: fixed;
+    position:fixed;
     width: 100%;
     top: 0;
     height: auto;
@@ -31,9 +31,10 @@ header input,header button{
 
 main{
     display:flex;
-    margin-top: auto;
-    padding-top: 75px;
+    margin-top: 100px;
+    padding-top: 50px;
     justify-content: center;
+    
     
     
 }
