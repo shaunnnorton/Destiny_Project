@@ -18,58 +18,72 @@ go_button.onclick = function(e) {
     displayClan()
 }
 function displayClan(){
-    var xhr = new XMLHttpRequest()
-    xhr.open("GET", `https://www.bungie.net/Platform/Destiny2/SearchDestinyPlayer/${platform}/${player_name}/`, false)
-    xhr.setRequestHeader("X-API-Key", apiKey)
-    //console.log(xhr)
-    xhr.onreadystatechange = function(){
+    var player_find = new XMLHttpRequest()
+    player_find.open("GET", `https://www.bungie.net/Platform/Destiny2/SearchDestinyPlayer/${platform}/${player_name}/`, false)
+    player_find.setRequestHeader("X-API-Key", apiKey)
+    //console.log(player_find)
+    player_find.onreadystatechange = function(){
         if(this.readyState === 4 && this.status === 200){
             var json = JSON.parse(this.responseText);
             member_id = json.Response[0].membershipId
-            console.log(member_id)
+            //console.log(json)
         }
     }
-    xhr.send()
+    player_find.send()
     //---------------------------------------------------------------------------------------------------------------------------------------------------------------
-    var xhr2 = new XMLHttpRequest()
+    var clan_find = new XMLHttpRequest()
 
-    xhr2.open("GET", `https://www.bungie.net/Platform/GroupV2/User/1/${member_id}/0/1/`, false)
-    xhr2.setRequestHeader("X-API-Key", apiKey)  
-    xhr2.onreadystatechange = function(){
+    clan_find.open("GET", `https://www.bungie.net/Platform/GroupV2/User/1/${member_id}/0/1/`, false)
+    clan_find.setRequestHeader("X-API-Key", apiKey)  
+    clan_find.onreadystatechange = function(){
         if(this.readyState === 4 && this.status === 200){
             var json = JSON.parse(this.responseText);
             clan_id = json.Response.results[0].group.groupId
             clan_name = json.Response.results[0].group.name
             clan_header.innerText = clan_name
-            console.log(json)
+            //console.log(json)
         }   
     }
 
-    xhr2.send();
+    clan_find.send();
 //--------------------------------------------------------------------------------------------------------------------
-    var xhr3 = new XMLHttpRequest()
-    xhr3.open("GET", `https://www.bungie.net/Platform//GroupV2/${clan_id}/Members/`, false)
-    xhr3.setRequestHeader("X-API-Key", apiKey)
-//console.log(xhr)
-    xhr3.onreadystatechange = function(){
+    var clanmems = new XMLHttpRequest()
+    clanmems.open("GET", `https://www.bungie.net/Platform//GroupV2/${clan_id}/Members/`, false)
+    clanmems.setRequestHeader("X-API-Key", apiKey)
+//console.log(player_find)
+    clanmems.onreadystatechange = function(){
         if(this.readyState === 4 && this.status === 200){
             var json = JSON.parse(this.responseText);
             for(let _ = 0; _ < json.Response.results.length;_+=1){
                 let player = json.Response.results[_].destinyUserInfo.LastSeenDisplayName
                 let status = ''
+                let last_on = new Date(json.Response.results[_].lastOnlineStatusChange * 1000)
+                let member_type_store = json.Response.results[_].memberType
+                let member_type = ''
+                if(member_type_store === 5 || member_type_store === 4){
+                    member_type = 'Founder'
+                }else if (member_type_store == 3){
+                    member_type= "Admin"
+                }else if (member_type_store == 2){
+                    member_type = 'Member'
+                }else{
+                    member_type = 'Begginner'
+                }
+
+                console.log(member_type)
                     if(json.Response.results[_].isOnline === false){
-                        status = 'offline'
+                        status = `was last online ${last_on}`
                     }
                     else{
-                        status = 'online'
+                        status = 'is online now'
                     }
     
                 let new_player = document.createElement('li')
                 new_player.className = 'clan_member'
-                new_player.innerText = `Clan Member ${player} is currently ${status}!`
+                new_player.innerText = `Clan ${member_type} ${player} ${status}!`
                 players.appendChild(new_player)
             }
         }
     }
-    xhr3.send()
+    clanmems.send()
 }
