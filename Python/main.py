@@ -1,3 +1,3 @@
-import whos_online
-DSS = whos_online.Find_Online(4259676)
-DSS.get_status()
+import clan_info
+DSS = clan_info.Clan_Info()
+DSS.get_player_status()
