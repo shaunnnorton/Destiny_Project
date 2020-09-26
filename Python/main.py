@@ -1,3 +1,3 @@
-import clan_info
-DSS = clan_info.Clan_Info()
-DSS.get_player_status()
+from together import Player
+shaun = Player('docthunder58')
+shaun.get_player_status()

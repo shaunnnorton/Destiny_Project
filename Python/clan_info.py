@@ -1,33 +1,20 @@
 import json
 import requests
 import time
-class Clan_Info:
+from player_info import Player_Info
+class Clan_Info(Player_Info):
     '''Class to find information regarding a clan provided a gamertag'''
-    def __init__(self):
-        '''Initializes class'''
-        #self.clan_id = clan_id
-        self.gamertag = input("What is your Gamertag: ")
-
-    
-
-    
-
-    def get_info(self):
-        """Gets information realated to the gamertag that was initialized"""
-        HEADERS = {"X-API-Key":"e147633507dc489e99b3bfaf9b235023"}
-        response = requests.get(f'https://www.bungie.net/Platform/Destiny2/SearchDestinyPlayer/-1/{self.gamertag}', headers=HEADERS)
-        player_info = response.json()
-        return player_info['Response']
-
-    def get_memid(self):
-        '''Returns the membership ID of the player'''
-        player_info = self.get_info()
-        #print(player_info[0]["membershipId"])
-        return player_info[0]["membershipId"]
+    def __init__(self,gamertag):
+        super().__init__(gamertag)
+        self.clan = self.find_clan()
+        self.clan_name = ''
+        self.member_count = int()
+        self.clan_level = int()
+        self.clan_details()
 
     def find_clan(self):
         '''Finds the clan of the provided player. Returns json response.'''
-        member = self.get_memid()
+        member = self.member_id
         HEADERS = {"X-API-Key":"e147633507dc489e99b3bfaf9b235023"}
         response = requests.get(f'https://www.bungie.net/Platform/GroupV2/User/1/{member}/0/1/', headers=HEADERS)
         clan_info = response.json()
@@ -36,14 +23,12 @@ class Clan_Info:
 
     def get_player_status(self):
         '''Prints all players of the clan with online status'''
-        clan = self.find_clan()
+        clan = self.clan
         clan_id = clan["Response"]["results"][0]["group"]["groupId"]
         HEADERS = {"X-API-Key":"e147633507dc489e99b3bfaf9b235023"}
-        
         r = requests.get(f'https://www.bungie.net/Platform//GroupV2/{clan_id}/Members/', headers=HEADERS)
         clan = r.json()
         player_number = 0
-        #print(clan)
         for _ in clan['Response']['results']:
             player = clan['Response']['results'][player_number]['destinyUserInfo']['LastSeenDisplayName']
             status = clan['Response']['results'][player_number]['isOnline']
@@ -67,6 +52,8 @@ class Clan_Info:
                 print(f"Clan {member_type} {player} is Online")
             player_number+=1
 
+    def clan_details(self):
+        self.clan_name = self.clan['Response']['results'][0]['group']['name']
+        self.member_count = self.clan['Response']['results'][0]['group']['memberCount']
+        self.clan_level = self.clan['Response']['results'][0]['group']['clanInfo']['d2ClanProgressions']['584850370']['level']
         
-
-    
