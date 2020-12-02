@@ -23,6 +23,7 @@ class Clan_Info(Player_Info):
 
     def get_player_status(self):
         '''Prints all players of the clan with online status'''
+        clan_members = list()
         clan = self.clan
         clan_id = clan["Response"]["results"][0]["group"]["groupId"]
         HEADERS = {"X-API-Key":"e147633507dc489e99b3bfaf9b235023"}
@@ -47,11 +48,13 @@ class Clan_Info(Player_Info):
             #print(last_online)
             #print(member_type)
             if status == False:
-                print(f"Clan {member_type} {player} was last online at {last_online}")
+                #print(f"Clan {member_type} {player} was last online at {last_online}")
+                clan_members.append(f"Clan {member_type} {player} was last online at {last_online}")
             else:
-                print(f"Clan {member_type} {player} is Online")
+                # print(f"Clan {member_type} {player} is Online")
+                clan_members.append(f"Clan {member_type} {player} is Online")
             player_number+=1
-
+        return clan_members
     def clan_details(self):
         self.clan_name = self.clan['Response']['results'][0]['group']['name']
         self.member_count = self.clan['Response']['results'][0]['group']['memberCount']

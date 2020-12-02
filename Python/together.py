@@ -22,7 +22,8 @@ class Player(Player_Characters,Clan_Info):
                 print(f'Clan Members {self.member_count}')
                 print(f'Clan level {self.clan_level}')
                 print()
-                self.get_player_status()
+                for player in self.get_player_status():
+                    print(player)
                 input('Press enter to Continue.')
                 print('-----------------------------------------------------')
             if(int(action)== 2):
