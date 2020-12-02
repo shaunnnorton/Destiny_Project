@@ -52,7 +52,7 @@ class Manifest:
         
          #check if pickle exists, if not create one.
         
-        if os.path.isfile('/Users/shaunnorton/scripts/d2Manifest.content') == False or os.path.isfile('/Users/shaunnorton/scripts/d2manifest.pickle') == False :
+        if os.path.isfile('/Users/shaunnorton/scripts/DestinyAPITest/Python/d2Manifest.content') == False or os.path.isfile('/Users/shaunnorton/scripts/DestinyAPITest/Python/d2manifest.pickle') == False :
             self.__get_manifest()
             self._all_data = self.__build_dict(self.hashes)
             with open('d2manifest.pickle', 'wb') as data:
@@ -61,7 +61,7 @@ class Manifest:
         else:
             print('Pickle Exists')
 
-        with open('d2manifest.pickle', 'rb') as data:
+        with open('/Users/shaunnorton/scripts/DestinyAPITest/Python/d2manifest.pickle', 'rb') as data:
             self._all_data = pickle.load(data)
 
         
@@ -77,7 +77,7 @@ class Manifest:
         #get the manifest location from the json
         r = requests.get(manifest_url)
         manifest = r.json()
-        
+        #print(manifest)HOLY SHIT DONT DO THIS IF YOU LOVE YOUR COMPUTER
         mani_url = 'http://www.bungie.net'+manifest['Response']['mobileWorldContentPaths']['en']
 
         #Download the file, write it to 'MANZIP'

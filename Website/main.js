@@ -9,6 +9,7 @@ const clan = document.getElementById("Clan")
 const players = document.getElementById('players')
 const clan_header = document.getElementById('clan_name')
 const go_button = document.getElementById('submit')
+let destiy_id=''
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 //--------------------------------------------------------------------------------------------------------------------
@@ -16,6 +17,7 @@ go_button.onclick = function(e) {
     players.innerHTML = ''
     player_name = user.value
     displayClan()
+    get_player_info()
 }
 function displayClan(){
     var player_find = new XMLHttpRequest()
@@ -26,7 +28,7 @@ function displayClan(){
         if(this.readyState === 4 && this.status === 200){
             var json = JSON.parse(this.responseText);
             member_id = json.Response[0].membershipId
-            //console.log(json)
+            console.log(json)
         }
     }
     player_find.send()
@@ -87,3 +89,20 @@ function displayClan(){
     }
     clanmems.send()
 }
+//------------------------------------------------------------------------------------------------
+function get_player_info() {
+    let player_info = new XMLHttpRequest()
+    //player_info.open("GET",`https://www.bungie.net/Platform/Destiny2/w/Profile/${member_id}/?components=100`,false)
+    player_info.open("GET",`http://www.bungie.net/platform/User/SearchUsers/?q=${player_name}`,false)
+    player_info.setRequestHeader("X-API-Key", apiKey)
+    player_info.setRequestHeader("Access-Control-Allow-Origin", "http://127.0.0.1:5500/DestinyAPITest/")
+    player_info.setRequestHeader("Access-Control-Allow-Methods", "GET, POST, DELETE, PUT")
+    player_info.setRequestHeader("Access-Control-Allow-Headers", "X-Requested-With, Content-Type, Authorization, Origin, Accept")
+    player_info.onreadystatechange = function(){
+        if(this.readyState === 4 && this.status === 200){
+            console.log(player_info.Response)
+        }
+    }
+    player_info.send()
+}
+//get_player_info()
