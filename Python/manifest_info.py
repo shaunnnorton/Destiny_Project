@@ -52,7 +52,7 @@ class Manifest:
         
          #check if pickle exists, if not create one.
         
-        if os.path.isfile('/Users/shaunnorton/scripts/DestinyAPITest/Python/d2Manifest.content') == False or os.path.isfile('/Users/shaunnorton/scripts/DestinyAPITest/Python/d2manifest.pickle') == False :
+        if os.path.isfile('/Users/shaunnorton/scripts/DestinyAPITest/Python/Manifests/d2Manifest.content') == False or os.path.isfile('/Users/shaunnorton/scripts/DestinyAPITest/Python/Manifests/d2manifest.pickle') == False :
             self.__get_manifest()
             self._all_data = self.__build_dict(self.hashes)
             with open('d2manifest.pickle', 'wb') as data:
@@ -61,7 +61,7 @@ class Manifest:
         else:
             print('Pickle Exists')
 
-        with open('/Users/shaunnorton/scripts/DestinyAPITest/Python/d2manifest.pickle', 'rb') as data:
+        with open('/Users/shaunnorton/scripts/DestinyAPITest/Python/Manifests/d2manifest.pickle', 'rb') as data:
             self._all_data = pickle.load(data)
 
         
